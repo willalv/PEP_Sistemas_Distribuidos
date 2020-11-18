@@ -2,6 +2,7 @@ package pep.distribuidos.controladores;
 
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.relational.core.sql.In;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
@@ -10,6 +11,11 @@ import pep.distribuidos.repositorios.PermisoRepositorio;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RestController;
+
+import java.text.DateFormat;
+import java.text.SimpleDateFormat;
+import java.util.Calendar;
+import java.util.Date;
 //import org.springframework.mail.SimpleMailMessage;
 //import org.springframework.mail.javamail.JavaMailSender;
 
@@ -51,6 +57,69 @@ public class PermisoControlador {
     @ResponseStatus(HttpStatus.CREATED)
     @ResponseBody
     public Permiso create(@RequestBody Permiso permiso){
+        Calendar calendar = Calendar.getInstance();
+        calendar.setTime(new Date());
+        Date fecha = calendar.getTime();
+        Byte tipoPermiso = permiso.getMotivo();
+
+        permiso.setFechaInicio(fecha);
+        permiso.setHoraInicio(fecha);
+
+        if (tipoPermiso == 1 || tipoPermiso == 2 || tipoPermiso == 5 ||
+                tipoPermiso == 10 || tipoPermiso == 12) {
+            calendar.set(Calendar.HOUR, calendar.get(Calendar.HOUR) + 3);
+            fecha = calendar.getTime();
+            permiso.setFechaFin(fecha);
+            permiso.setHoraFin(fecha);
+        }
+
+        else if (tipoPermiso == 3 || tipoPermiso == 9 || tipoPermiso == 11) {
+            calendar.set(Calendar.HOUR, calendar.get(Calendar.HOUR) + 2);
+            fecha = calendar.getTime();
+            permiso.setFechaFin(fecha);
+            permiso.setHoraFin(fecha);
+        }
+
+        else if (tipoPermiso == 4) {
+            calendar.set(Calendar.MINUTE, calendar.get(Calendar.MINUTE) + 30);
+            fecha = calendar.getTime();
+            permiso.setFechaFin(fecha);
+            permiso.setHoraFin(fecha);
+        }
+
+        else if (tipoPermiso == 6 || tipoPermiso == 7) {
+            calendar.set(Calendar.HOUR, calendar.get(Calendar.HOUR) + 5);
+            fecha = calendar.getTime();
+            permiso.setFechaFin(fecha);
+            permiso.setHoraFin(fecha);
+        }
+
+        else if (tipoPermiso == 13) {
+            calendar.set(Calendar.HOUR, calendar.get(Calendar.HOUR) + 6);
+            fecha = calendar.getTime();
+            permiso.setFechaFin(fecha);
+            permiso.setHoraFin(fecha);
+        }
+
+        else if (tipoPermiso == 14) {
+            calendar.set(Calendar.HOUR, calendar.get(Calendar.HOUR) + 4);
+            fecha = calendar.getTime();
+            permiso.setFechaFin(fecha);
+            permiso.setHoraFin(fecha);
+        }
+
+        else if (tipoPermiso == 15) {
+            calendar.set(Calendar.MINUTE, calendar.get(Calendar.MINUTE) + 90);
+            fecha = calendar.getTime();
+            permiso.setFechaFin(fecha);
+            permiso.setHoraFin(fecha);
+        }
+
+        else {
+            permiso.setFechaFin(fecha);
+            permiso.setHoraFin(fecha);
+        }
+
         return permisoRepositorio.save(permiso);
     }
 

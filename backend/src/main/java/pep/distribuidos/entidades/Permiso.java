@@ -38,17 +38,19 @@ public class Permiso {
 
     // Fecha y hora del permiso, solo al momento de apretar botón continuar.
 
+    @JsonFormat(pattern = "HH:mm:ss", timezone = "Chile/Continental")
     @Column(name = "hora_inicio", nullable = false)
     private Date horaInicio;
 
+    @JsonFormat(pattern = "HH:mm:ss", timezone = "Chile/Continental")
     @Column(name = "hora_fin", nullable = false)
     private Date horaFin;
 
-    @JsonFormat(pattern="dd-MM-yyyy")
+    @JsonFormat(pattern="dd-MM-yyyy", timezone = "Chile/Continental")
     @Column(name = "fecha_inicio", nullable = false)
     private Date fechaInicio;
 
-    @JsonFormat(pattern="dd-MM-yyyy")
+    @JsonFormat(pattern="dd-MM-yyyy", timezone = "Chile/Continental")
     @Column(name = "fechaFin", nullable = false)
     private Date fechaFin;
 
