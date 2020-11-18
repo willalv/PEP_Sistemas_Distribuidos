@@ -36,12 +36,12 @@ public class PermisoControlador {
         return permisoRepositorio.findPermisoByIdPermiso(permisoId);
     }
 
-//    @GetMapping(value = "/permiso/{codigo}")
-//    @ResponseBody
-//    public Permiso getPermisoByCodigo(@PathVariable int codigo){
-//        int codigoPermiso = codigo;
-//        return permisoRepositorio.findPermisoByCodigo(codigoPermiso);
-//    }
+    @GetMapping(value = "/permiso/codigo/{codigo}")
+    @ResponseBody
+    public Permiso getPermisoByCodigo(@PathVariable int codigo){
+        int codigoPermiso = codigo;
+        return permisoRepositorio.findPermisoByCodigo(codigoPermiso);
+    }
 
 
     //@PostMapping(path = "/permisos", consumes="application/json")

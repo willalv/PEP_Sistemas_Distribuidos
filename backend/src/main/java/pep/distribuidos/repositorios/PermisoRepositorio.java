@@ -5,5 +5,5 @@ import pep.distribuidos.entidades.Permiso;
 
 public interface PermisoRepositorio extends JpaRepository<Permiso, Integer> {
     Permiso findPermisoByIdPermiso(int idPermiso);
-    //Permiso findPermisoByCodigo(int codigo);
+    Permiso findPermisoByCodigo(int codigo);
 }

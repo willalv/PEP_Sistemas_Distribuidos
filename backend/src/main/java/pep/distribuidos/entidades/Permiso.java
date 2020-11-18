@@ -17,8 +17,8 @@ public class Permiso {
     @Column(name = "id_permiso",  unique=true, nullable=false)
     private int idPermiso;
 
-    //@Column(name = "codigo", nullable = false)
-    //private  int codigo;
+    @Column(name = "codigo", nullable = false)
+    private  int codigo;
 
     // Datos que ingresa el ususario
     @Column(name = "rut_persona", unique = false, nullable = false, length = 10)
@@ -72,7 +72,7 @@ public class Permiso {
         this.horaFin = inicio;
         this.fechaFin = inicio;
         this.fechaInicio = inicio;
-        //this.codigo = 123987654;
+        this.codigo = 123987654;
 
 
         //DateFormat formatoHora = new SimpleDateFormat("HH:mm:ss");
@@ -88,9 +88,9 @@ public class Permiso {
         this.idPermiso = idPermiso;
     }
 
-   // public int getCodigo() {        return codigo;    }
+    public int getCodigo() {        return codigo;    }
 
-//    public void setCodigo(int codigo) {        this.codigo = codigo;    }
+    public void setCodigo(int codigo) {        this.codigo = codigo;    }
 
     public String getRutPersona() {
         return rutPersona;
