@@ -57,9 +57,10 @@ public class PermisoControlador {
     @ResponseStatus(HttpStatus.CREATED)
     @ResponseBody
     public Permiso create(@RequestBody Permiso permiso){
-        Calendar calendar = Calendar.getInstance();
-        calendar.setTime(new Date());
-        Date fecha = calendar.getTime();
+        Calendar calendario = Calendar.getInstance();
+        calendario.setTime(new Date());
+        calendario.set(Calendar.MINUTE, calendario.get(Calendar.MINUTE) + 15);
+        Date fecha = calendario.getTime();
         Byte tipoPermiso = permiso.getMotivo();
 
         permiso.setFechaInicio(fecha);
@@ -67,50 +68,50 @@ public class PermisoControlador {
 
         if (tipoPermiso == 1 || tipoPermiso == 2 || tipoPermiso == 5 ||
                 tipoPermiso == 10 || tipoPermiso == 12) {
-            calendar.set(Calendar.HOUR, calendar.get(Calendar.HOUR) + 3);
-            fecha = calendar.getTime();
+            calendario.set(Calendar.HOUR, calendario.get(Calendar.HOUR) + 3);
+            fecha = calendario.getTime();
             permiso.setFechaFin(fecha);
             permiso.setHoraFin(fecha);
         }
 
         else if (tipoPermiso == 3 || tipoPermiso == 9 || tipoPermiso == 11) {
-            calendar.set(Calendar.HOUR, calendar.get(Calendar.HOUR) + 2);
-            fecha = calendar.getTime();
+            calendario.set(Calendar.HOUR, calendario.get(Calendar.HOUR) + 2);
+            fecha = calendario.getTime();
             permiso.setFechaFin(fecha);
             permiso.setHoraFin(fecha);
         }
 
         else if (tipoPermiso == 4) {
-            calendar.set(Calendar.MINUTE, calendar.get(Calendar.MINUTE) + 30);
-            fecha = calendar.getTime();
+            calendario.set(Calendar.MINUTE, calendario.get(Calendar.MINUTE) + 30);
+            fecha = calendario.getTime();
             permiso.setFechaFin(fecha);
             permiso.setHoraFin(fecha);
         }
 
         else if (tipoPermiso == 6 || tipoPermiso == 7) {
-            calendar.set(Calendar.HOUR, calendar.get(Calendar.HOUR) + 5);
-            fecha = calendar.getTime();
+            calendario.set(Calendar.HOUR, calendario.get(Calendar.HOUR) + 5);
+            fecha = calendario.getTime();
             permiso.setFechaFin(fecha);
             permiso.setHoraFin(fecha);
         }
 
         else if (tipoPermiso == 13) {
-            calendar.set(Calendar.HOUR, calendar.get(Calendar.HOUR) + 6);
-            fecha = calendar.getTime();
+            calendario.set(Calendar.HOUR, calendario.get(Calendar.HOUR) + 6);
+            fecha = calendario.getTime();
             permiso.setFechaFin(fecha);
             permiso.setHoraFin(fecha);
         }
 
         else if (tipoPermiso == 14) {
-            calendar.set(Calendar.HOUR, calendar.get(Calendar.HOUR) + 4);
-            fecha = calendar.getTime();
+            calendario.set(Calendar.HOUR, calendario.get(Calendar.HOUR) + 4);
+            fecha = calendario.getTime();
             permiso.setFechaFin(fecha);
             permiso.setHoraFin(fecha);
         }
 
         else if (tipoPermiso == 15) {
-            calendar.set(Calendar.MINUTE, calendar.get(Calendar.MINUTE) + 90);
-            fecha = calendar.getTime();
+            calendario.set(Calendar.MINUTE, calendario.get(Calendar.MINUTE) + 90);
+            fecha = calendario.getTime();
             permiso.setFechaFin(fecha);
             permiso.setHoraFin(fecha);
         }
