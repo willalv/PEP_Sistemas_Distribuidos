@@ -57,8 +57,7 @@
           v-model="reason"
           :items="items"
           :rules="[v => !!v || 'El motivo es requerido']"
-          item-text="state"
-          item-value="id"
+          item-text="text"
           label="Motivo permiso"
           required
       >
@@ -82,6 +81,45 @@
         Obtener permiso
       </v-btn>
     </v-form>
+
+    <div class="text-center">
+      <v-dialog
+          v-model="dialog"
+          width="500"
+      >
+        <v-card>
+          <v-card-title class="headline grey lighten-2">
+            Permiso Temporal
+          </v-card-title>
+
+          <v-card-text>
+            <br>
+            <b>Nombre completo:</b> {{ name }} <br>
+            <b>Rut/DNI:</b> {{ rut }} <br>
+            <b>Dirección origen:</b> {{ originAddress }} <br>
+            <b>Direccion destino:</b> {{ destinationAddress }} <br>
+            <b>Fecha y hora desde:</b> <br>
+            <b>Fecha y hora hasta:</b> <br>
+            <b>Motivo:</b> {{ reason }}
+            <br>
+
+          </v-card-text>
+
+          <v-divider></v-divider>
+
+          <v-card-actions>
+            <v-spacer></v-spacer>
+            <v-btn
+                color="primary"
+                text
+                @click="reset"
+            >
+              Continuar
+            </v-btn>
+          </v-card-actions>
+        </v-card>
+      </v-dialog>
+    </div>
   </v-card>
 </template>
 
@@ -112,42 +150,48 @@ export default {
     ],
     reason: null,
     items: [
-      {state: 'Asistencia a establecimientos de salud', id: 1},
-      {state: 'Compras insumos básicos', id: 2},
-      {state: 'Salida de personas con espectro autista u otra discapacidad mental', id: 3},
-      {state: 'Paseo de mascotas', id: 4},
-      {state: 'Pago de servicios básicos y gestiones', id: 5},
-      {state: 'Asistencia a funeral familiar directo', id: 6},
-      {state: 'Proceso de postulación al Sistema de Admisión Escolar, retiro de alimentos, textos escolares y/o artículos tecnológicos', id: 7},
-      {state: 'Comparecencia a una citación en virtud de la Ley', id: 8},
-      {state: 'Entregar alimentos u otros insumos de primera necesidad a adultos mayores', id: 9},
-      {state: 'Proporcionar alimentos o insumos de primera necesidad en Recinto Penitenciario', id: 10},
-      {state: 'Traslado del menor o adolescente al hogar del tutelar', id: 11},
-      {state: 'Traslado de padres o tutores a establecimientos de Salud o Centros de SENAME', id: 12},
-      {state: 'Permiso para donantes de sangre', id: 13},
-      {state: 'Matrimonio y Unión Civil', id: 14},
-      {state: 'Salida de Niños, Niñas y Adolescentes', id: 15},
-      {state: 'Permiso de Traslado Interregional', id: 16}
+      {text: 'Asistencia a establecimientos de salud', id: 1},
+      {text: 'Compras insumos básicos', id: 2},
+      {text: 'Salida de personas con espectro autista u otra discapacidad mental', id: 3},
+      {text: 'Paseo de mascotas', id: 4},
+      {text: 'Pago de servicios básicos y gestiones', id: 5},
+      {text: 'Asistencia a funeral familiar directo', id: 6},
+      {text: 'Proceso de postulación al Sistema de Admisión Escolar, retiro de alimentos, textos escolares y/o artículos tecnológicos', id: 7},
+      {text: 'Comparecencia a una citación en virtud de la Ley', id: 8},
+      {text: 'Entregar alimentos u otros insumos de primera necesidad a adultos mayores', id: 9},
+      {text: 'Proporcionar alimentos o insumos de primera necesidad en Recinto Penitenciario', id: 10},
+      {text: 'Traslado del menor o adolescente al hogar del tutelar', id: 11},
+      {text: 'Traslado de padres o tutores a establecimientos de Salud o Centros de SENAME', id: 12},
+      {text: 'Permiso para donantes de sangre', id: 13},
+      {text: 'Matrimonio y Unión Civil', id: 14},
+      {text: 'Salida de Niños, Niñas y Adolescentes', id: 15},
+      {text: 'Permiso de Traslado Interregional', id: 16}
     ],
-    checkbox: false
+    dialog: false,
   }),
 
   methods: {
     validate () {
       if (this.$refs.form.validate()){
+        var values = this.items.map(function(o) { return o.text })
+        var index = values.indexOf(this.reason)
+        this.choiceId = this.items[index].id
         var jsonDatos= {
           rut: this.rut,
           name: this.name,
           originAddress: this.originAddress,
           destinationAddress: this.destinationAddress,
           email: this.email,
-          reason: this.reason
+          reason: this.choiceId,
         };
-        console.log(jsonDatos)
+        console.log(jsonDatos);
+
+        this.dialog = true;
       }
     },
     reset () {
-      this.$refs.form.reset()
+      this.$refs.form.reset();
+      this.dialog = false
     }
   },
 }
