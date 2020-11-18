@@ -3,9 +3,6 @@ package pep.distribuidos.entidades;
 import com.fasterxml.jackson.annotation.JsonFormat;
 
 import javax.persistence.*;
-import java.util.List;
-import java.text.DateFormat;
-import java.text.SimpleDateFormat;
 import java.util.Date;
 
 @Entity
@@ -15,10 +12,10 @@ public class Permiso {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name = "id_permiso",  unique=true, nullable=false)
-    private int idPermiso;
+    private Integer idPermiso;
 
     @Column(name = "codigo", nullable = false)
-    private  int codigo;
+    private Integer codigo;
 
     // Datos que ingresa el ususario
     @Column(name = "rut_persona", unique = false, nullable = false, length = 10)
@@ -51,6 +48,7 @@ public class Permiso {
     @Column(name = "fecha_inicio", nullable = false)
     private Date fechaInicio;
 
+    @JsonFormat(pattern="dd-MM-yyyy")
     @Column(name = "fechaFin", nullable = false)
     private Date fechaFin;
 
@@ -58,39 +56,31 @@ public class Permiso {
     // Constructor
     public  Permiso(){}
 
-    public Permiso(String rutPersona, String nombrePersona, String direccionOrigen, String direccionDestino, String correo, byte motivo){
-
+    public Permiso(Integer codigo, String rutPersona, String nombrePersona, String direccionOrigen, String direccionDestino, String correo, byte motivo, Date horaInicio, Date horaFin, Date fechaInicio, Date fechaFin){
+        this.codigo = codigo;
         this.rutPersona = rutPersona;
         this.nombrePersona = nombrePersona;
         this.direccionOrigen = direccionOrigen;
         this.direccionDestino = direccionDestino;
         this.correo = correo;
         this.motivo = motivo;
-
-        Date inicio = new Date();
-        this.horaInicio = inicio;
-        this.horaFin = inicio;
-        this.fechaFin = inicio;
-        this.fechaInicio = inicio;
-        this.codigo = 123987654;
-
-
-        //DateFormat formatoHora = new SimpleDateFormat("HH:mm:ss");
-        //this.horaInicio = formatoHora.format(inicio);
-
+        this.horaInicio = horaInicio;
+        this.horaFin = horaFin;
+        this.fechaInicio = fechaInicio;
+        this.fechaFin = fechaFin;
     }
 
-    public int getIdPermiso() {
+    public Integer getIdPermiso() {
         return idPermiso;
     }
 
-    public void setIdPermiso(int idPermiso) {
+    public void setIdPermiso(Integer idPermiso) {
         this.idPermiso = idPermiso;
     }
 
-    public int getCodigo() {        return codigo;    }
+    public Integer getCodigo() {        return codigo;    }
 
-    public void setCodigo(int codigo) {        this.codigo = codigo;    }
+    public void setCodigo(Integer codigo) {        this.codigo = codigo;    }
 
     public String getRutPersona() {
         return rutPersona;
