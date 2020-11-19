@@ -98,9 +98,10 @@
             <b>Rut/DNI:</b> {{ rut }} <br>
             <b>Dirección origen:</b> {{ originAddress }} <br>
             <b>Direccion destino:</b> {{ destinationAddress }} <br>
-            <b>Fecha y hora desde:</b> <br>
-            <b>Fecha y hora hasta:</b> <br>
-            <b>Motivo:</b> {{ reason }}
+            <b>Fecha y hora desde:</b> {{ sinceDate }} {{ sinceTime }} <br>
+            <b>Fecha y hora hasta:</b> {{ untilDate }} {{ untilTime }} <br>
+            <b>Motivo:</b> {{ reason }} <br>
+            <b>Código permiso:</b> {{ code }}
             <br>
 
           </v-card-text>
@@ -124,6 +125,8 @@
 </template>
 
 <script>
+import axios from 'axios'
+
 export default {
   data: () => ({
     valid: true,
@@ -167,6 +170,11 @@ export default {
       {text: 'Salida de Niños, Niñas y Adolescentes', id: 15},
       {text: 'Permiso de Traslado Interregional', id: 16}
     ],
+    code: null,
+    sinceDate: null,
+    sinceTime: null,
+    untilDate: null,
+    untilTime: null,
     dialog: false,
   }),
 
@@ -176,15 +184,22 @@ export default {
         var values = this.items.map(function(o) { return o.text })
         var index = values.indexOf(this.reason)
         this.choiceId = this.items[index].id
-        var jsonDatos= {
-          rut: this.rut,
-          name: this.name,
-          originAddress: this.originAddress,
-          destinationAddress: this.destinationAddress,
-          email: this.email,
-          reason: this.choiceId,
+        var jsonDatosPost= {
+          rutPersona: this.rut,
+          nombrePersona: this.name,
+          direccionOrigen: this.originAddress,
+          direccionDestino: this.destinationAddress,
+          correo: this.email,
+          motivo: this.choiceId
         };
-        console.log(jsonDatos);
+        axios.post('http://localhost:9091/permisos', jsonDatosPost).then((response) => {
+          console.log(response);
+          this.code = response.data.codigo;
+          this.sinceDate = response.data.fechaInicio;
+          this.sinceTime = response.data.horaInicio;
+          this.untilDate = response.data.fechaFin;
+          this.untilTime = response.data.horaFin;
+        })
 
         this.dialog = true;
       }

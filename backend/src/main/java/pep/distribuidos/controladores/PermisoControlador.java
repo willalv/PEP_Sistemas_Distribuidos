@@ -42,16 +42,12 @@ public class PermisoControlador {
         return permisoRepositorio.findPermisoByIdPermiso(permisoId);
     }
 
-    @GetMapping(value = "/permiso/codigo/{codigo}")
+    @GetMapping(value = "/permiso-codigo/{codigo}")
     @ResponseBody
     public Permiso getPermisoByCodigo(@PathVariable int codigo){
         int codigoPermiso = codigo;
         return permisoRepositorio.findPermisoByCodigo(codigoPermiso);
     }
-
-
-    //@PostMapping(path = "/permisos", consumes="application/json")
-    //public ResponseEntity<String> agregarPermiso(@RequestBody Permiso permiso){ }
 
     @PostMapping(value = "/permisos")
     @ResponseStatus(HttpStatus.CREATED)
@@ -120,6 +116,9 @@ public class PermisoControlador {
             permiso.setFechaFin(fecha);
             permiso.setHoraFin(fecha);
         }
+
+        int n = (int) (Math.random() * (999999999 + 1));
+        permiso.setCodigo(n);
 
         return permisoRepositorio.save(permiso);
     }
