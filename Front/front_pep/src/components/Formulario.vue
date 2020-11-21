@@ -181,6 +181,7 @@ export default {
   methods: {
     validate () {
       if (this.$refs.form.validate()){
+        this.valid = false;
         var values = this.items.map(function(o) { return o.text })
         var index = values.indexOf(this.reason)
         this.choiceId = this.items[index].id
@@ -199,9 +200,8 @@ export default {
           this.sinceTime = response.data.horaInicio;
           this.untilDate = response.data.fechaFin;
           this.untilTime = response.data.horaFin;
+          this.dialog = true;
         })
-
-        this.dialog = true;
       }
     },
     reset () {
