@@ -6,6 +6,7 @@ import org.springframework.data.relational.core.sql.In;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
+import pep.distribuidos.entidades.Correo;
 import pep.distribuidos.entidades.Permiso;
 import pep.distribuidos.repositorios.PermisoRepositorio;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -14,6 +15,7 @@ import org.springframework.web.bind.annotation.RestController;
 
 import java.text.DateFormat;
 import java.text.SimpleDateFormat;
+import java.text.ParseException;
 import java.util.Calendar;
 import java.util.Date;
 //import org.springframework.mail.SimpleMailMessage;
@@ -38,16 +40,27 @@ public class PermisoControlador {
     @GetMapping(value = "/permiso/{id}")
     @ResponseBody
     public Permiso getPermisoByIdPermiso(@PathVariable int id){
-        int permisoId = id;
-        return permisoRepositorio.findPermisoByIdPermiso(permisoId);
+        return permisoRepositorio.findPermisoByIdPermiso(id);
     }
 
     @GetMapping(value = "/permiso-codigo/{codigo}")
     @ResponseBody
     public Permiso getPermisoByCodigo(@PathVariable int codigo){
-        int codigoPermiso = codigo;
-        return permisoRepositorio.findPermisoByCodigo(codigoPermiso);
+        return permisoRepositorio.findPermisoByCodigo(codigo);
     }
+
+    //Función enviar correo
+    /*public void enviarCorreo(Correo correo)
+    {
+        SimpleMailMessage email = new SimpleMailMessage();
+
+        email.setTo(correo.getDestinatario());
+        email.setSubject(correo.getAsunto());
+        email.setText(correo.getMensaje());
+
+        mailSender.send(email);
+    }*/
+
 
     @PostMapping(value = "/permisos")
     @ResponseStatus(HttpStatus.CREATED)
@@ -112,6 +125,19 @@ public class PermisoControlador {
             permiso.setHoraFin(fecha);
         }
 
+        else if (tipoPermiso == 16) {
+            SimpleDateFormat formato = new SimpleDateFormat("HH:mm:ss");
+            String hora = "23:59:59";
+            permiso.setFechaFin(fecha);
+            try {
+                permiso.setHoraFin(formato.parse(hora));
+            }
+            catch (ParseException ex)
+            {
+                System.out.println(ex);
+            }
+        }
+
         else {
             permiso.setFechaFin(fecha);
             permiso.setHoraFin(fecha);
@@ -119,6 +145,9 @@ public class PermisoControlador {
 
         int n = (int) (Math.random() * (999999999 + 1));
         permiso.setCodigo(n);
+
+
+
 
         return permisoRepositorio.save(permiso);
     }
