@@ -1,0 +1,18 @@
+config:
+  target: "http://localhost:9091/"
+  phases:
+    - duration: 1
+      arrivalRate: 500
+
+        
+scenarios:
+  - flow:
+      - post:
+          url: "/permisos"
+          json:
+            rutPersona: "12345678-9"
+            nombrePersona: "Juanito Perez"
+            direccionOrigen: "Buin"
+            direccionDestino: "Paine"
+            correo: "juan@yopmail.com"
+            motivo: 2
