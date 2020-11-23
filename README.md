@@ -3,10 +3,6 @@
 #### Williams Álvarez - Patricia Melo
 
 
-# Link Git
-
-https://github.com/willalv/PEP_Sistemas_Distribuidos
-
 # Sistemas distribuidos:
 
 Según Adrian Rodriguez (2019) un sistema distribuido es un conjunto de ordenadores que trabajan juntos de forma coordinada, a través del intercambio de mensajes, para conseguir un objetivo. En dicho sistema, el estado y los programas se guardan en múltiples ordenadores. A pesar de que los procesos que tienen lugar están separados entre los diferentes participantes, para el usuario parece que está trabajando con un único ordenador.
