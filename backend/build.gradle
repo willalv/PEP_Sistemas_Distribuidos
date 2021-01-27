@@ -26,6 +26,6 @@ dependencies {
     testImplementation 'io.projectreactor:reactor-test'
 }
 
-test {
+/*test {
     useJUnitPlatform()
-}
+}*/

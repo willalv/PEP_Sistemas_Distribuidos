@@ -2,3 +2,5 @@
 .idea/
 
 backend/src/main/resources/application.properties
+
+Front/front_pep/package-lock.json

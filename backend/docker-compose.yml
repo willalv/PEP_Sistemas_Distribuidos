@@ -1,0 +1,25 @@
+version: '3.1'
+services:
+  postgres:
+    image: postgres
+    restart: always
+    volumes:
+      - postgres-data:/var/lib/postgresql/data
+    environment:
+      - POSTGRES_DB=pepDB
+      - POSTGRES_USER=postgres
+      - POSTGRES_PASSWORD=asd123
+    ports:
+      - "5432:5432"
+  app:
+    container_name: back_distribuidos
+    build: .
+    ports:
+      - "9091:9091"
+    depends_on:
+      - postgres
+
+volumes:
+  postgres:
+  postgres-data:
+    external: false
